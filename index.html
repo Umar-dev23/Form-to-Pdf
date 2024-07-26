@@ -1,0 +1,71 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color and Font Details</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <label class="title-bold" for="companyNameInput">Companys Name:</label>
+        <input
+          type="text"
+          id="companyNameInput"
+          placeholder="Enter company name"
+        />
+      </div>
+      <div>
+        <label class="title-bold" for="hexInput">Hex Codes:</label>
+        <input
+          type="text"
+          class="inputs"
+          id="hexInput"
+          placeholder="Enter hex code"
+        />
+        <button onclick="addHexCode()">Add Hex Code</button>
+      </div>
+      <div id="hexCodesContainer" class="hex-codes-container"></div>
+      <div>
+        <label class="title-bold" for="fontInput">Font Names:</label>
+        <input
+          type="text"
+          class="inputs"
+          id="fontInput"
+          placeholder="Enter font name"
+        />
+        <button onclick="addFontName()">Add Font Name</button>
+      </div>
+      <div id="fontNamesContainer"></div>
+      <p class="title-bold link_mailer" for="mail_hostinger">
+        <a
+          href="https://mail.hostinger.com/?_task=mail&_mbox=INBOX"
+          target="_blank"
+          >Visit Mail.Hostinger</a
+        >
+      </p>
+      <div>
+        <label class="title-bold" for="emailinut">Email: </label>
+        <input type="email" id="emailinput" placeholder="Enter hex email" />
+        <button onclick="addEmail()">Add Email</button>
+      </div>
+      <div id="emailcontainer"></div>
+      <div>
+        <label class="title-bold" for="password_input">Password:</label>
+        <input type="password" id="password" placeholder="Enter Password" />
+        <button onclick="addPassword()">Add Password</button>
+      </div>
+      <div id="pw_container" class="pw_contain"></div>
+      <button class="generate-pdf-btn" onclick="generatePDF()">
+        Generate PDF
+      </button>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  </body>
+</html>

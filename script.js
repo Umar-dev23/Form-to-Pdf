@@ -1,6 +1,5 @@
 //initlizing variables
 let hexCodes = [];
-let fontNames = [];
 let emails = [];
 let passwords = [];
 
@@ -16,11 +15,11 @@ document
 
 //function when we click on btn Add_font_Name
 document
-  .getElementById("fontInput")
+  .getElementById("emailinput")
   .addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
-      addFontName();
+      addEmail();
     }
   });
 
@@ -31,19 +30,8 @@ function addHexCode() {
   if (hexCode) {
     hexCodes.push(hexCode);
     displayHexCodes(); //calling another function
-    hexInput.value = "";
-    hexInput.focus();
-  }
-}
 
-function addFontName() {
-  const fontInput = document.getElementById("fontInput");
-  const fontName = fontInput.value;
-  if (fontName) {
-    fontNames.push(fontName);
-    displayFontNames();
-    fontInput.value = "";
-    fontInput.focus();
+    hexInput.focus();
   }
 }
 
@@ -53,7 +41,7 @@ function addEmail() {
   if (email) {
     emails.push(email);
     displayEmails();
-    emailinput.value = "";
+
     emailinput.focus();
   }
 }
@@ -63,7 +51,7 @@ function addPassword() {
   if (password) {
     passwords.push(password);
     displayPassword();
-    pw_input.value = "";
+
     pw_input.focus();
   }
 }
@@ -82,18 +70,6 @@ function displayHexCodes() {
     outerdiv.appendChild(colorBox);
     outerdiv.appendChild(colorcode);
     hexContainer.appendChild(outerdiv);
-  });
-}
-
-//function for displaying the Code after btn Add_Font_Name clicked.
-function displayFontNames() {
-  const fontContainer = document.getElementById("fontNamesContainer");
-  fontContainer.innerHTML = "";
-  fontNames.forEach((name) => {
-    const fontNameDiv = document.createElement("div");
-    fontNameDiv.className = "font-name";
-    fontNameDiv.innerText = name;
-    fontContainer.appendChild(fontNameDiv);
   });
 }
 
@@ -130,9 +106,10 @@ function generatePDF() {
     doc.setFontSize(26);
     doc.addImage("logo.png", "PNG", 50, 15, 40, 15);
     const companyName = document.getElementById("companyNameInput").value;
+
     doc.setFontSize(26);
     doc.setFont("Arial", "bold");
-    doc.text(20, 40, `Project Completion Details - ${companyName}`);
+    doc.text(20, 40, `Website Delivery Report - ${companyName}`);
 
     //Hex codes displaying
     doc.setFontSize(16);
@@ -145,31 +122,23 @@ function generatePDF() {
       doc.text(45, 66 + index * 12, code);
     });
 
-    //Font displaying
-    doc.setFont("Arial", "bold");
-    doc.text(25, 75 + hexCodes.length * 10, "Fonts Used:");
-    doc.setFont("Arial", "normal");
-    fontNames.forEach((name, index) => {
-      doc.text(40, 85 + hexCodes.length * 10 + index * 10, name);
-    });
-
     //mail.hostinger Link
     doc.setFont("Arial", "bold");
-    doc.text(30, 110 + fontNames.length * 10, "Access your Email ");
+    doc.text(25, 80 + hexCodes.length * 10, "Access your Email ");
     doc.setTextColor(0, 0, 255);
-    doc.textWithLink("here", 76, 110 + fontNames.length * 10, {
+    doc.textWithLink("here", 71, 80 + hexCodes.length * 10, {
       url: "https://mail.hostinger.com/",
     });
     doc.setDrawColor(0, 0, 255);
     doc.line(
       76,
-      111 + fontNames.length * 10,
+      81 + hexCodes.length * 10,
       76 + doc.getTextWidth("here"),
-      111 + fontNames.length * 10
+      81 + hexCodes.length * 10
     );
 
     //Tablle code
-    let value = fontNames.length * 10 + 120;
+    let value = hexCodes.length * 10 + 100;
     const tableBody = emails.map((item, index) => [item, passwords[index]]);
     doc.autoTable({
       startY: value,
@@ -179,7 +148,7 @@ function generatePDF() {
     });
 
     //generating file Pdf
-    let fileName = `Project Completion Details - ${companyName}.pdf`;
+    let fileName = `Website Delivery Report - ${companyName}.pdf`;
     doc.save(fileName);
   };
 }

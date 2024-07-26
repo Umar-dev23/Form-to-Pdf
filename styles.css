@@ -139,10 +139,6 @@ a:hover {
   width: 60%;
   margin: 20px auto;
 }
-.link_mailer {
-  text-align: center;
-  text-decoration: underline;
-}
 .hex-codes-container {
   display: flex;
   flex-wrap: wrap;
@@ -151,4 +147,3 @@ a:hover {
   padding: 10px;
   border-radius: 8px;
 }
-

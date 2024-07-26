@@ -30,18 +30,25 @@
       </div>
       <div id="hexCodesContainer" class="hex-codes-container"></div>
 
-      <div>
-        <label class="title-bold" for="emailinut">Email: </label>
-        <input type="email" id="emailinput" placeholder="Enter hex email" />
-        <button onclick="addEmail()">Add Email</button>
+      <div class="em_pass">
+        <div>
+          <label class="title-bold" for="emailinut">Email: </label>
+          <input type="email" id="emailinput" placeholder="Enter hex email" />
+        </div>
+
+        <div>
+          <label class="title-bold" for="password_input">Password:</label>
+          <input type="password" id="password" placeholder="Enter Password" />
+        </div>
       </div>
-      <div id="emailcontainer"></div>
+      <button onclick="add_Email_Password()" id="btnem_pass">
+        Add Email & Password
+      </button>
+
       <div>
-        <label class="title-bold" for="password_input">Password:</label>
-        <input type="password" id="password" placeholder="Enter Password" />
-        <button onclick="addPassword()">Add Password</button>
+        <div id="emailcontainer"></div>
+        <div id="pw_container" class="pw_contain"></div>
       </div>
-      <div id="pw_container" class="pw_contain"></div>
       <button class="generate-pdf-btn" onclick="generatePDF()">
         Generate PDF
       </button>

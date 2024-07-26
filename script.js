@@ -30,68 +30,92 @@ function addHexCode() {
   if (hexCode) {
     hexCodes.push(hexCode);
     displayHexCodes(); //calling another function
-
     hexInput.focus();
   }
 }
 
-function addEmail() {
+function add_Email_Password() {
   let emailinput = document.getElementById("emailinput");
-  let email = emailinput.value;
-  if (email) {
-    emails.push(email);
-    displayEmails();
-
-    emailinput.focus();
-  }
-}
-function addPassword() {
   let pw_input = document.getElementById("password");
-  let password = pw_input.value;
-  if (password) {
-    passwords.push(password);
-    displayPassword();
 
-    pw_input.focus();
+  let email = emailinput.value;
+  let password = pw_input.value;
+
+  if (email && password) {
+    emails.push(email);
+    passwords.push(password);
+    display_Email_Passwords();
+    emailinput.focus();
+  } else {
+    alert("Please Add Email and Password both!");
   }
 }
-//function for displaying the Code after btn Add_Hex_code clicked.
+
 function displayHexCodes() {
   const hexContainer = document.getElementById("hexCodesContainer");
   hexContainer.innerHTML = "";
-  hexCodes.forEach((code) => {
+  hexCodes.forEach((code, index) => {
     const outerdiv = document.createElement("div");
     const colorBox = document.createElement("div");
+    const innerdiv = document.createElement("div");
     const colorcode = document.createElement("p");
+
     outerdiv.className = "flex-container";
     colorBox.className = "color-box";
+    innerdiv.className = "inner-div";
+    //colorcode.style.color =
     colorBox.style.backgroundColor = code;
     colorcode.innerText = code;
+
+    const cross = document.createElement("p");
+    cross.innerText = "x";
+    cross.className = "cross";
+    cross.onclick = () => del_hex_code(index);
+
+    innerdiv.appendChild(colorcode);
+    innerdiv.appendChild(cross);
     outerdiv.appendChild(colorBox);
-    outerdiv.appendChild(colorcode);
+    outerdiv.appendChild(innerdiv);
+
     hexContainer.appendChild(outerdiv);
   });
 }
+function del_hex_code(index) {
+  hexCodes.splice(index, 1);
+  displayHexCodes();
+}
+function del_value(index) {
+  emails.splice(index, 1);
+  passwords.splice(index, 1);
+  display_Email_Passwords();
+}
 
-function displayEmails() {
+function display_Email_Passwords() {
   const emailContainer = document.getElementById("emailcontainer");
   emailContainer.innerHTML = "";
-  emails.forEach((email) => {
+
+  emails.forEach((email, index) => {
+    const epContainer = document.createElement("div");
+    epContainer.className = "ep_info";
+
     const emailDiv = document.createElement("div");
     emailDiv.className = "email_info";
     emailDiv.innerText = email;
-    emailContainer.appendChild(emailDiv);
-  });
-}
 
-function displayPassword() {
-  const pw_Container = document.getElementById("pw_container");
-  pw_Container.innerHTML = "";
-  passwords.forEach((password) => {
-    const password_div = document.createElement("div");
-    password_div.className = "password_info";
-    password_div.innerText = password;
-    pw_Container.appendChild(password_div);
+    const passwordDiv = document.createElement("div");
+    passwordDiv.className = "password_info";
+    passwordDiv.innerText = passwords[index];
+
+    const cross = document.createElement("p");
+    cross.innerText = "x";
+    cross.className = "cross";
+    cross.onclick = () => del_value(index);
+
+    epContainer.appendChild(emailDiv);
+    epContainer.appendChild(passwordDiv);
+    epContainer.appendChild(cross);
+
+    emailContainer.appendChild(epContainer);
   });
 }
 
@@ -124,16 +148,16 @@ function generatePDF() {
 
     //mail.hostinger Link
     doc.setFont("Arial", "bold");
-    doc.text(25, 80 + hexCodes.length * 10, "Access your Email ");
+    doc.text(25, 80 + hexCodes.length * 10, "Access your Emails ");
     doc.setTextColor(0, 0, 255);
     doc.textWithLink("here", 71, 80 + hexCodes.length * 10, {
       url: "https://mail.hostinger.com/",
     });
     doc.setDrawColor(0, 0, 255);
     doc.line(
-      76,
+      71,
       81 + hexCodes.length * 10,
-      76 + doc.getTextWidth("here"),
+      71 + doc.getTextWidth("here"),
       81 + hexCodes.length * 10
     );
 

@@ -14,7 +14,7 @@ body {
   width: 80%;
   margin: 20px auto;
   padding: 20px;
-  background: #d6f1ed;
+  background: #def3f0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -27,9 +27,7 @@ body {
 }
 
 /* Input styles */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type="text"] {
   width: calc(100% - 24px);
   padding: 12px 20px;
   margin: 8px 0;
@@ -39,7 +37,18 @@ input[type="password"] {
   font-size: 16px;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-
+/*margin sequence: top, right, bottom, left*/
+input[type="email"],
+input[type="password"] {
+  width: 110%;
+  padding: 12px 20px;
+  margin: 8px 2px 10px 0px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
 input:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
@@ -50,7 +59,12 @@ input::placeholder {
   color: #aaa;
   font-style: italic;
 }
-
+.em_pass {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 /* Button styles */
 button {
   background-color: #007bff;
@@ -70,7 +84,7 @@ button:hover {
 /* Centered button style for "Generate PDF" */
 .generate-pdf-btn {
   display: block;
-  width: 60%;
+  width: 90%;
   margin: 20px auto;
 }
 
@@ -80,6 +94,11 @@ button:hover {
   align-items: center;
   justify-content: center;
   margin: 10px 0;
+  margin: 5px;
+  padding: 8px;
+  background-color: #fff6a5;
+  border-radius: 14px;
+  font-weight: 600;
 }
 
 /* Styling for hex color boxes */
@@ -119,6 +138,14 @@ button:hover {
   border-radius: 4px;
   font-weight: 600;
 }
+.ep_info {
+  display: inline-block;
+  margin: 5px;
+  padding: 8px;
+  background-color: #2a3b3d;
+  border-radius: 14px;
+  font-weight: 600;
+}
 
 /* Font name styles */
 .font-name {
@@ -134,11 +161,7 @@ a {
 a:hover {
   text-decoration: underline;
 }
-.generate-pdf-btn {
-  display: block;
-  width: 60%;
-  margin: 20px auto;
-}
+
 .hex-codes-container {
   display: flex;
   flex-wrap: wrap;
@@ -146,4 +169,30 @@ a:hover {
   gap: 10px;
   padding: 10px;
   border-radius: 8px;
+}
+#btnem_pass {
+  display: block;
+  width: calc(60% - 24px);
+  margin: 10px auto 5px auto;
+}
+.cross {
+  color: white;
+  background-color: red;
+  padding: 3px;
+  border-radius: 25px;
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+  justify-content: start;
+  cursor: pointer;
+  margin-top: -8px;
+  margin-left: auto;
+}
+.inner-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 60px;
+  height: 50px;
+  margin-top: -30px;
 }

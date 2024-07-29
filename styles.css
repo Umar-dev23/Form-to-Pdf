@@ -145,6 +145,7 @@ button:hover {
 }
 .ep_info {
   display: inline-flex;
+  flex-wrap: wrap;
   margin: 5px;
   padding: 8px;
   background-color: #2a3b3d;
@@ -200,4 +201,22 @@ a:hover {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.hexbtns {
+  display: flex;
+  justify-content: space-around;
+}
+
+#btn_prm_color {
+  background-color: #ffa111;
+}
+#btn_prm_color:hover {
+  background-color: #8b5a0f;
+}
+#btn_Sec_color {
+  background: cadetblue;
+}
+#btn_Sec_color:hover {
+  background: #3a6163;
 }

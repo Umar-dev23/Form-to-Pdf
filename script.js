@@ -2,6 +2,9 @@
 let hexCodes = [];
 let emails = [];
 let passwords = [];
+let client_Name = "Client_Name";
+let client_email = "Client_Email will be displayed";
+let pm_Name = "To Be Sent{His/Her Name}";
 
 //function when we click on btn Add_hex_Code
 document
@@ -123,42 +126,121 @@ function display_Email_Passwords() {
 function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
+  const date_time = new Date();
   const img = new Image();
   img.src = "logo.png";
 
+  setPageColor(doc, "#ee2d4c");
   img.onload = function () {
-    doc.setFontSize(26);
-    doc.addImage("logo.png", "PNG", 50, 15, 40, 15);
+    showlogo(doc);
+
+    doc.setTextColor("#ffffff");
+    doc.setFontSize(76);
     const companyName = document.getElementById("companyNameInput").value;
+    doc.setFont("Helvetica", "bold");
+    // Set font properties
+    const margin = 20;
+    doc.setFontSize(76);
+    doc.text(margin + 20, 65, "WEB");
+    doc.text(margin + 20, 100, "SITE");
+    // Draw a single border around both texts
+    doc.setDrawColor("#ffffff"); // Border color
+    doc.setLineWidth(3);
+    doc.rect(30, 35, 85, 80);
+
+    doc.setFontSize(36);
+    doc.text(30, 130, `Delivery Report - ${companyName}`);
+
+    doc.text(
+      30,
+      145,
+      `${date_time.getDate()}/${
+        date_time.getMonth() + 1
+      }/${date_time.getFullYear()}`
+    );
 
     doc.setFontSize(26);
-    doc.setFont("Arial", "bold");
-    doc.text(20, 40, `Website Delivery Report - ${companyName}`);
+    doc.setFont("Helvetica", "bold");
+    doc.text(50, 220, "www.aethonint.digital");
+    doc.setFontSize(14);
+    doc.text(55, 250, `Client: ${client_Name}`);
+    doc.text(55, 260, `Email: ${client_email}`);
+    doc.setFontSize(12);
+    doc.text(75, 290, "www.aethonint.digital");
+    //requesting for new page:02
+    doc.addPage();
+    doc.setTextColor("#000000");
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const usableWidth = pageWidth - 2 * margin;
 
+    showlogo(doc);
+
+    doc.setFontSize(16);
+    doc.setFont("Helvetica", "normal");
+
+    // Date
+    doc.text(
+      margin,
+      50,
+      `Date: ${date_time.getDate()}/${
+        date_time.getMonth() + 1
+      }/${date_time.getFullYear()}`
+    );
+
+    // Greeting
+    doc.text(margin, 70, `Dear ${client_Name}!`);
+
+    // Main content
+    const mainContent = [
+      "We are pleased to present you with the details of your newly developed website. It has been a pleasure working with you to bring your vision to life, and we are confident that this website will meet your expectations and serve your needs effectively.",
+      "Please find below all the pertinent information regarding your website, including login details, fonts and colour codes.",
+      "Should you have any questions or require further assistance, please do not hesitate to contact us. Thank you for entrusting us with your website project.",
+    ];
+
+    // Starting y-coordinate for the main content
+    let yOffset = 90;
+
+    // Split each line to fit within the usable width
+    mainContent.forEach((text) => {
+      const lines = doc.splitTextToSize(text, usableWidth);
+      doc.text(lines, margin, yOffset);
+      yOffset += lines.length * 10; // Adjust the vertical position for each paragraph
+    });
+
+    doc.text(margin, yOffset + 5, "Warm Regards");
+    doc.setFont("Helvetica", "bold");
+    doc.text(margin, yOffset + 15, `${pm_Name}`);
+    doc.text(margin, yOffset + 25, "(Project Manager)");
+
+    //requesting for new page:03
+    doc.addPage();
+
+    showlogo(doc);
     //Hex codes displaying
     doc.setFontSize(16);
-    doc.setFont("Arial", "bold");
-    doc.text(25, 50, "Hex Colour Codes Used:");
-    doc.setFont("Arial", "normal");
+    doc.setFont("Helvetica", "bold");
+    doc.text(25, 60, "Hex Colour Codes Used:");
+    doc.setFont("Helvetica", "normal");
     hexCodes.forEach((code, index) => {
       doc.setFillColor(code);
-      doc.rect(30, 59 + index * 12, 10, 10, "F");
-      doc.text(45, 66 + index * 12, code);
+      doc.rect(30, 69 + index * 12, 10, 10, "F");
+      doc.text(45, 76 + index * 12, code);
     });
 
     //mail.hostinger Link
-    doc.setFont("Arial", "bold");
-    doc.text(25, 80 + hexCodes.length * 10, "Access your Emails ");
+    doc.setFont("Helvetica", "bold");
+    doc.text(25, 90 + hexCodes.length * 10, "Access your Emails ");
     doc.setTextColor(0, 0, 255);
-    doc.textWithLink("here", 73, 80 + hexCodes.length * 10, {
+    doc.textWithLink("here", 79, 90 + hexCodes.length * 10, {
       url: "https://mail.hostinger.com/",
     });
+    //creating the line under the here
     doc.setDrawColor(0, 0, 255);
     doc.line(
-      73,
-      81 + hexCodes.length * 10,
-      73 + doc.getTextWidth("here"),
-      81 + hexCodes.length * 10
+      79,
+      91 + hexCodes.length * 10,
+      79 + doc.getTextWidth("here"),
+      91 + hexCodes.length * 10
     );
 
     //Tablle code
@@ -171,8 +253,30 @@ function generatePDF() {
       // tableWidth: 150,
     });
 
+    //requesting another page: 07: Thankyou
+    doc.addPage();
+    setPageColor(doc, "#ff5454");
+    doc.setFontSize(116);
+    doc.setTextColor("#ffffff");
+    doc.setFont("Helvetica", "bold");
+    doc.text(margin + 30, 140, "Thank");
+    doc.text(margin + 45, 180, "You");
+
     //generating file Pdf
     let fileName = `Website Delivery Report - ${companyName}.pdf`;
     doc.save(fileName);
   };
+}
+
+//function for showing logo in pdf:
+function showlogo(doc) {
+  doc.addImage("logo.png", "PNG", 80, 10, 40, 15);
+}
+
+function setPageColor(doc, color) {
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const backgroundColor = color;
+  doc.setFillColor(backgroundColor);
+  doc.rect(0, 0, pageWidth, pageHeight, "F");
 }

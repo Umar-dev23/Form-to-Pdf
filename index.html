@@ -26,7 +26,17 @@
           id="hexInput"
           placeholder="Enter hex code"
         />
-        <button onclick="addHexCode()">Add Hex Code</button>
+        <div class="hexbtns">
+          <button id="btn_prm_color" onclick="addHexCode()">
+            Add as Primary Color
+          </button>
+          <button id="btn_Sec_color" onclick="addHexCode()">
+            Add as Secondary Color
+          </button>
+          <button id="btn_normal_color" onclick="addHexCode()">
+            Add Text Hex Code
+          </button>
+        </div>
       </div>
       <div id="hexCodesContainer" class="hex-codes-container"></div>
 
@@ -44,9 +54,9 @@
       <button onclick="add_Email_Password()" id="btnem_pass">
         Add Email & Password
       </button>
-
       <div id="ep_container"></div>
 
+      <input />
       <button class="generate-pdf-btn" onclick="generatePDF()">
         Generate PDF
       </button>

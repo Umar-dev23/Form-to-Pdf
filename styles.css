@@ -40,7 +40,7 @@ input[type="text"] {
 /*margin sequence: top, right, bottom, left*/
 input[type="email"],
 input[type="password"] {
-  width: 110%;
+  width: calc(110% - 24px);
   padding: 12px 20px;
   margin: 8px 2px 10px 0px;
   border: 2px solid #ccc;
@@ -63,7 +63,7 @@ input::placeholder {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 /* Button styles */
 button {
@@ -138,13 +138,20 @@ button:hover {
   border-radius: 4px;
   font-weight: 600;
 }
+#ep_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .ep_info {
-  display: inline-block;
+  display: inline-flex;
   margin: 5px;
   padding: 8px;
   background-color: #2a3b3d;
   border-radius: 14px;
   font-weight: 600;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Font name styles */
@@ -178,21 +185,19 @@ a:hover {
 .cross {
   color: white;
   background-color: red;
-  padding: 3px;
-  border-radius: 25px;
+  padding: 5px 7px;
+  border-radius: 5px;
   display: inline-block;
-  width: 20px;
-  text-align: center;
-  justify-content: start;
   cursor: pointer;
-  margin-top: -8px;
-  margin-left: auto;
+  margin: auto 10px;
+}
+.cross:hover {
+  box-shadow: 0px 0px 7px 0px #2843ff;
+  border: 1px solid black;
 }
 .inner-div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 60px;
-  height: 50px;
-  margin-top: -30px;
+  justify-content: space-around;
 }

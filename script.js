@@ -68,7 +68,7 @@ function displayHexCodes() {
     colorcode.innerText = code;
 
     const cross = document.createElement("p");
-    cross.innerText = "x";
+    cross.innerText = "Delete";
     cross.className = "cross";
     cross.onclick = () => del_hex_code(index);
 
@@ -91,7 +91,7 @@ function del_value(index) {
 }
 
 function display_Email_Passwords() {
-  const emailContainer = document.getElementById("emailcontainer");
+  const emailContainer = document.getElementById("ep_container");
   emailContainer.innerHTML = "";
 
   emails.forEach((email, index) => {
@@ -107,7 +107,7 @@ function display_Email_Passwords() {
     passwordDiv.innerText = passwords[index];
 
     const cross = document.createElement("p");
-    cross.innerText = "x";
+    cross.innerText = "Delete";
     cross.className = "cross";
     cross.onclick = () => del_value(index);
 
@@ -150,14 +150,14 @@ function generatePDF() {
     doc.setFont("Arial", "bold");
     doc.text(25, 80 + hexCodes.length * 10, "Access your Emails ");
     doc.setTextColor(0, 0, 255);
-    doc.textWithLink("here", 71, 80 + hexCodes.length * 10, {
+    doc.textWithLink("here", 73, 80 + hexCodes.length * 10, {
       url: "https://mail.hostinger.com/",
     });
     doc.setDrawColor(0, 0, 255);
     doc.line(
-      71,
+      73,
       81 + hexCodes.length * 10,
-      71 + doc.getTextWidth("here"),
+      73 + doc.getTextWidth("here"),
       81 + hexCodes.length * 10
     );
 

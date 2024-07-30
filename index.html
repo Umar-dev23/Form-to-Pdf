@@ -27,13 +27,13 @@
           placeholder="Enter hex code"
         />
         <div class="hexbtns">
-          <button id="btn_prm_color" onclick="addHexCode()">
+          <button id="btn_prm_color" onclick="addPrimaryHexCode()">
             Add as Primary Color
           </button>
-          <button id="btn_Sec_color" onclick="addHexCode()">
+          <button id="btn_Sec_color" onclick="addSecondaryHexCode()">
             Add as Secondary Color
           </button>
-          <button id="btn_normal_color" onclick="addHexCode()">
+          <button id="btn_normal_color" onclick="addNormalHexCode()">
             Add Text Hex Code
           </button>
         </div>
@@ -43,12 +43,22 @@
       <div class="em_pass">
         <div>
           <label class="title-bold" for="emailinut">Email: </label>
-          <input type="email" id="emailinput" placeholder="Enter hex email" />
+          <input
+            type="email"
+            id="emailinput"
+            placeholder="Enter hex email"
+            class="width_set_inputs"
+          />
         </div>
 
         <div>
           <label class="title-bold" for="password_input">Password:</label>
-          <input type="password" id="password" placeholder="Enter Password" />
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            class="width_set_inputs"
+          />
         </div>
       </div>
       <button onclick="add_Email_Password()" id="btnem_pass">
@@ -56,7 +66,60 @@
       </button>
       <div id="ep_container"></div>
 
-      <input />
+      <div>
+        <label class="title-bold" for="clientName">Client Name:</label>
+        <input
+          type="text"
+          id="clientName_input"
+          placeholder="Enter client name"
+        />
+      </div>
+      <div>
+        <label class="title-bold" for="clientEmail">Client Email:</label>
+        <input
+          type="email"
+          id="clientEmail_input"
+          placeholder="Enter client email"
+          class="email_password_Specail"
+        />
+      </div>
+      <div>
+        <label class="title-bold" for="websiteUrl">Website URL:</label>
+        <input
+          type="text"
+          id="websiteUrl_input"
+          placeholder="Enter website url"
+        />
+      </div>
+      <div>
+        <label class="title-bold" for="wp_login_Url"
+          >WordPress Login URL:</label
+        >
+        <input
+          type="text"
+          id="wp_login_input"
+          placeholder="Enter Wordpress login url"
+        />
+      </div>
+      <div>
+        <label class="title-bold" for="wordpressUname"
+          >WordPress Username:</label
+        >
+        <input
+          type="text"
+          id="wp_Uname_input"
+          placeholder="Enter wordpress user name"
+        />
+      </div>
+      <div>
+        <label class="title-bold" for="wp_password">WordPress Password:</label>
+        <input
+          type="password"
+          id="wp_password_iput"
+          placeholder="Enter wordpress password"
+          class="email_password_Specail"
+        />
+      </div>
       <button class="generate-pdf-btn" onclick="generatePDF()">
         Generate PDF
       </button>

@@ -33,6 +33,7 @@ document
     }
   });
 
+//function that take input value from Form and store it in upper decalred variables.
 function storeinvariables() {
   companyName = document.getElementById("companyNameInput").value;
   client_Name = document.getElementById("clientName_input").value;
@@ -43,7 +44,7 @@ function storeinvariables() {
   wp_password = document.getElementById("wp_password_iput").value;
 }
 
-//function when we click on btn Add_Hex_Code
+//function when we click on btn Add_Primary_Code
 function addPrimaryHexCode() {
   const hexInput = document.getElementById("hexInput");
   const hexCode = hexInput.value;
@@ -53,6 +54,7 @@ function addPrimaryHexCode() {
   }
 }
 
+//function when we click on btn Add_secondary_Code
 function addSecondaryHexCode() {
   const hexInput = document.getElementById("hexInput");
   const hexCode = hexInput.value;
@@ -62,6 +64,7 @@ function addSecondaryHexCode() {
   }
 }
 
+//function when we click on btn Add_Text_Hex_Code
 function addNormalHexCode() {
   const hexInput = document.getElementById("hexInput");
   const hexCode = hexInput.value;
@@ -72,6 +75,7 @@ function addNormalHexCode() {
   }
 }
 
+//function for Email Password of Uper saving. storin them in an arrays. of Emails, and Passwords.
 function add_Email_Password() {
   let emailinput = document.getElementById("emailinput");
   let pw_input = document.getElementById("password");
@@ -91,6 +95,7 @@ function add_Email_Password() {
   }
 }
 
+//function behind the Delete button.
 function del_hex_code(index) {
   if (index === -1) {
     primaryColor = "";
@@ -102,6 +107,7 @@ function del_hex_code(index) {
   displayHexCodes();
 }
 
+//function for creating a div for color display.
 function createDivforColor(code, index, label = "") {
   const hexContainer = document.getElementById("hexCodesContainer");
 
@@ -132,6 +138,7 @@ function createDivforColor(code, index, label = "") {
   hexContainer.appendChild(outerdiv);
 }
 
+//function that call create div function to create and display user added hex codes.
 function displayHexCodes() {
   const hexContainer = document.getElementById("hexCodesContainer");
   hexContainer.innerHTML = "";
@@ -147,12 +154,14 @@ function displayHexCodes() {
   });
 }
 
+//separate function for deleting any email or password from emails, passwords arrays.
 function del_value(index) {
   emails.splice(index, 1);
   passwords.splice(index, 1);
   display_Email_Passwords();
 }
 
+//function for displaying Emails Passwords taking values from arrays.
 function display_Email_Passwords() {
   const emailContainer = document.getElementById("ep_container");
   emailContainer.innerHTML = "";
@@ -184,21 +193,27 @@ function display_Email_Passwords() {
 
 //Generate Pdf function
 function generatePDF() {
-  storeinvariables(); //call for store values in form to in variables..
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  const date_time = new Date();
+  storeinvariables(); //call for store values in form to in variables defined at the start of the code..
+  const { jsPDF } = window.jspdf; //import pdf.js
+  const doc = new jsPDF(); //making object of jsPDF.
+  const date_time = new Date(); //calling for getting current date and time.
   const img = new Image();
-  img.src = "logo.png";
+  img.src = "./images/Aethon_logo.png"; //logo
   const img1 = new Image();
-  img1.src = "font_place.png";
-  
+  img1.src = "./images/font_place.png"; //fontPlace on page 5.
 
+  //importing font-style
+  doc.addFont("/fonts/Montserrat-Regular.ttf", "Montserrat", "normal");
+  doc.addFont("/fonts/Montserrat-Bold.ttf", "Montserrat", "bold");
+  doc.setFont("Montserrat");
+  doc.setFontSize(28);
+
+  // Continue with your PDF generation after the font is added
   setPageColor(doc, "#ee2d4c");
   showlogo(doc);
   doc.setTextColor("#ffffff");
   doc.setFontSize(76);
-  doc.setFont("Helvetica", "bold");
+  doc.setFont("Montserrat", "bold");
   // Set font properties
   const margin = 20;
   doc.setFontSize(76);
@@ -222,13 +237,13 @@ function generatePDF() {
   );
 
   doc.setFontSize(26);
-  doc.setFont("Helvetica", "bold");
+  doc.setFont("Montserrat", "bold");
   doc.text(50, 220, "www.aethonint.digital");
   doc.setFontSize(14);
   doc.text(55, 250, `Client: ${client_Name}`);
   doc.text(55, 260, `Email: ${client_email}`);
   placeFooter(doc);
-
+  //--------------------------------------------End of Page: 01------------------------------------------------------
   //requesting for new page:02
   doc.addPage();
   doc.setTextColor("#000000");
@@ -236,8 +251,8 @@ function generatePDF() {
   const usableWidth = pageWidth - 2 * margin;
   showlogo(doc);
   doc.setFontSize(16);
-  doc.setFont("Helvetica", "normal");
-
+  doc.setFont("Montserrat", "normal");
+  //date showing
   doc.text(
     margin,
     50,
@@ -247,7 +262,7 @@ function generatePDF() {
   );
   doc.text(margin, 70, `Dear ${client_Name}`);
 
-  // Main content
+  // Main content of letter showing
   const mainContent = [
     "We are pleased to present you with the details of your newly developed website. It has been a pleasure working with you to bring your vision to life, and we are confident that this website will meet your expectations and serve your needs effectively.",
     "Please find below all the pertinent information regarding your website, including login details, fonts and colour codes.",
@@ -259,70 +274,72 @@ function generatePDF() {
   mainContent.forEach((text) => {
     const lines = doc.splitTextToSize(text, usableWidth);
     doc.text(lines, margin, yOffset);
-    yOffset += lines.length * 10; // Adjust the vertical position for each paragraph
+    yOffset += lines.length * 11; // Adjust the vertical position for each paragraph
   });
-  doc.text(margin, yOffset + 5, "Warm Regards");
-  doc.setFont("Helvetica", "bold");
-  doc.text(margin, yOffset + 15, `${pm_Name}`);
-  doc.text(margin, yOffset + 25, "(Project Manager)");
+  doc.text(margin, yOffset + 10, "Warm Regards");
+  doc.setFont("Montserrat", "bold");
+  doc.text(margin, yOffset + 20, `${pm_Name}`);
+  doc.text(margin, yOffset + 30, "(Project Manager)");
   placeFooter(doc);
+  //--------------------------------------------End of Page: 02------------------------------------------------------
 
   //requesting for new page:03
   doc.addPage();
   showlogo(doc);
   doc.setFontSize(36);
   doc.setTextColor("#ee2d4c");
-  doc.setFont("Helvetica", "bold");
-  doc.text(55, 45, "Website Details");
+  doc.setFont("Montserrat", "bold");
+  doc.text(48, 45, "Website Details");
   doc.setLineWidth(1);
   doc.setDrawColor("#ee2d4c");
-  doc.line(55, 47, 55 + doc.getTextWidth("Website Details"), 47);
+  doc.line(48, 47, 48 + doc.getTextWidth("Website Details"), 47);
 
+  //website details showing as .. Website link, Url, login username password,.....
   doc.setFontSize(16);
   doc.setTextColor("#000000");
-  doc.setFont("Helvetica", "bold");
+  doc.setFont("Montserrat", "bold");
   doc.text(margin + 10, 90, "Website URL: ");
-  doc.setFont("Helvetica", "normal");
+  doc.setFont("Montserrat", "normal");
   doc.text(margin + 15 + doc.getTextWidth("Website URL: "), 90, WebsiteUrl);
-  doc.setFont("Helvetica", "bold");
-  doc.text(margin + 10, 100, "WordPress Login URL: ");
-  doc.setFont("Helvetica", "normal");
+  doc.setFont("Montserrat", "bold");
+  doc.text(margin + 10, 100, "Admin Login URL: ");
+  doc.setFont("Montserrat", "normal");
   doc.text(
-    margin + 15 + doc.getTextWidth("WordPress Login URL: "),
+    margin + 15 + doc.getTextWidth("Admin Login URL: "),
     100,
     wp_LoginUrl
   );
-  doc.setFont("Helvetica", "bold");
-  doc.text(margin + 10, 110, "WordPress User Name: ");
-  doc.setFont("Helvetica", "normal");
+  doc.setFont("Montserrat", "bold");
+  doc.text(margin + 10, 110, "Admin User Name: ");
+  doc.setFont("Montserrat", "normal");
   doc.text(
-    margin + 15 + doc.getTextWidth("WordPress User Name: "),
+    margin + 15 + doc.getTextWidth("Admin User Name: "),
     110,
     wp_Username
   );
-  doc.setFont("Helvetica", "bold");
-  doc.text(margin + 10, 120, "WordPress Password: ");
-  doc.setFont("Helvetica", "normal");
+  doc.setFont("Montserrat", "bold");
+  doc.text(margin + 10, 120, "Admin Password: ");
+  doc.setFont("Montserrat", "normal");
   doc.text(
-    margin + 15 + doc.getTextWidth("WordPress Password: "),
+    margin + 15 + doc.getTextWidth("Admin Password: "),
     120,
     wp_password
   );
 
-  //mail.hostinger Link
-  doc.setFont("Helvetica", "bold");
+  //mail.hostinger Link showing
+  doc.setFont("Montserrat", "bold");
   doc.text(25, 145, "Access your Emails ");
   doc.setTextColor(0, 0, 255);
-  doc.textWithLink("here", 79, 145, {
+  doc.textWithLink("here", 83, 145, {
     url: "https://mail.hostinger.com/",
   });
 
   //creating the line under the here
   doc.setLineWidth(0);
   doc.setDrawColor(0, 0, 255);
-  doc.line(79, 146, 79 + doc.getTextWidth("here"), 146);
+  doc.line(83, 146, 83 + doc.getTextWidth("here"), 146);
 
-  //Tablle code
+  //Tablle code for email and password showing in the from taking value arrays of emails, passwords
   const tableBody = emails.map((item, index) => [item, passwords[index]]);
   doc.autoTable({
     startY: 150,
@@ -334,6 +351,7 @@ function generatePDF() {
     },
   });
   placeFooter(doc);
+  //--------------------------------------------End of Page: 03------------------------------------------------------
 
   //requesting for new page:04
 
@@ -341,44 +359,51 @@ function generatePDF() {
   showlogo(doc);
   doc.setFontSize(36);
   doc.setTextColor("#ee2d4c");
-  doc.setFont("Helvetica", "bold");
-  doc.text(55, 40, "Color Details");
+  doc.setFont("Montserrat", "bold");
+  doc.text(60, 40, "Color Details");
   doc.setLineWidth(1);
   doc.setDrawColor("#ee2d4c");
-  doc.line(55, 42, 55 + doc.getTextWidth("Color Details"), 42);
-  //Hex codes displaying
+  doc.line(60, 42, 60 + doc.getTextWidth("Color Details"), 42);
 
+  //Hex codes displaying
   doc.setFontSize(22);
   doc.setTextColor("#000000");
-  doc.setFont("Helvetica", "bold");
+  doc.setFont("Montserrat", "bold");
   doc.text(25, 80, "Primary: ");
-  doc.setFont("Helvetica", "normal");
+  doc.setFont("Montserrat", "normal");
   doc.text(25 + doc.getTextWidth("Primary:  "), 80, `${primaryColor}`);
   doc.setFillColor(primaryColor);
   doc.rect(140, 65, 25, 25, "F");
+  placeborder(doc, 0, 140, 65, 25, 25);
 
-  doc.setFont("Helvetica", "bold");
+  doc.setFont("Montserrat", "bold");
   doc.text(25, 115, "Secondary: ");
-  doc.setFont("Helvetica", "normal");
+  doc.setFont("Montserrat", "normal");
   doc.text(25 + doc.getTextWidth("Secondary:  "), 115, `${secondaryColor}`);
   doc.setFillColor(secondaryColor);
   doc.rect(140, 100, 25, 25, "F");
-  doc.setFont("Helvetica", "bold");
+  doc.setFont("Montserrat", "bold");
+  placeborder(doc, 0, 140, 100, 25, 25);
 
   doc.text(25, 150, "Text: ");
-  doc.setFont("Helvetica", "normal");
+  doc.setFont("Montserrat", "normal");
   let startY = 160;
   let spacing = 30;
   let currentIndex = 0; // To keep track of current index across pages
   let pageAdded = false;
 
+  //code for showing text based colors taking value from array.. hex_normal_codes
   hexCodes.forEach((code, index) => {
     if (index <= 3) {
       let currentY = startY + index * spacing;
       doc.text(60, currentY, code);
       doc.setFillColor(code);
       doc.rect(140, currentY - 10, 25, 25, "F");
-    } else if (index > 3 && !pageAdded) {
+      placeborder(doc, 0, 140, currentY - 10, 25, 25);
+    }
+    //remember one thing that too many if-else is placed error is why?
+    //Answer: Because, atleast if the length of color storing array become big from 4 it should create new page. automatically, and display the remaing on next page..
+    else if (index > 3 && !pageAdded) {
       doc.addPage();
       showlogo(doc);
       pageAdded = true;
@@ -387,6 +412,7 @@ function generatePDF() {
       doc.text(60, currentY, code);
       doc.setFillColor(code);
       doc.rect(140, currentY - 10, 25, 25, "F");
+      placeborder(doc, 0, 140, currentY - 10, 25, 25);
     } else {
       if (currentIndex >= 8) {
         doc.addPage();
@@ -397,37 +423,42 @@ function generatePDF() {
       doc.text(60, currentY, code);
       doc.setFillColor(code);
       doc.rect(140, currentY - 10, 25, 25, "F");
+      placeborder(doc, 0, 140, currentY - 10, 25, 25);
     }
     currentIndex++;
   });
   placeFooter(doc);
+  //--------------------------------------------End of Page: 04------------------------------------------------------
 
   //requesting for new page:05
   doc.addPage();
   showlogo(doc);
   doc.setFontSize(36);
   doc.setTextColor("#ee2d4c");
-  doc.setFont("Helvetica", "bold");
-  doc.text(55, 40, "TypoGraphy");
+  doc.setFont("Montserrat", "bold");
+  doc.text(60, 40, "TypoGraphy");
   doc.setLineWidth(1);
   doc.setDrawColor("#ee2d4c");
-  doc.line(55, 42, 55 + doc.getTextWidth("TypoGraphy"), 42);
-  doc.addImage("font_place.png", "PNG", 20, 50, 170, 220);
+  doc.line(60, 42, 60 + doc.getTextWidth("TypoGraphy"), 42);
+  doc.addImage("./images/font_place.png", "PNG", 15, 50);
   placeFooter(doc);
+
+  //--------------------------------------------End of Page: 05------------------------------------------------------
 
   //requesting for new page:06
   doc.addPage();
   showlogo(doc);
   doc.setFontSize(36);
   doc.setTextColor("#ee2d4c");
-  doc.setFont("Helvetica", "bold");
-  doc.text(55, 40, "Additional Details");
+  doc.setFont("Montserrat", "bold");
+  doc.text(42, 40, "Additional Details");
   doc.setLineWidth(1);
   doc.setDrawColor("#ee2d4c");
-  doc.line(55, 42, 55 + doc.getTextWidth("Additional Details"), 42);
+  doc.line(42, 42, 42 + doc.getTextWidth("Additional Details"), 42);
 
+  //content in the additional page is fixed and constant.....
   doc.setFontSize(16);
-  doc.setFont("Helvetica", "normal");
+  doc.setFont("Montserrat", "normal");
   doc.setTextColor("#000000");
   const additional_Content = [
     "Maintenance tasks are covered under the maintenance package, including updates, backups, and security monitoring.",
@@ -440,6 +471,7 @@ function generatePDF() {
     yOffset += lines.length * 10; // Adjust the vertical position for each paragraph
   });
   placeFooter(doc);
+  //--------------------------------------------End of Page: 06------------------------------------------------------
 
   //requesting another page: 07: Thankyou
   doc.addPage();
@@ -447,9 +479,9 @@ function generatePDF() {
   setPageColor(doc, "#ee2d4c");
   doc.setFontSize(116);
   doc.setTextColor("#ffffff");
-  doc.setFont("Helvetica", "bold");
-  doc.text(margin + 30, 140, "Thank");
-  doc.text(margin + 45, 180, "You");
+  doc.setFont("Montserrat", "bold");
+  doc.text(margin + 15, 140, "Thank");
+  doc.text(margin + 35, 180, "You");
   placeFooter(doc);
 
   //generating file Pdf
@@ -459,7 +491,7 @@ function generatePDF() {
 
 //function for showing logo in pdf:
 function showlogo(doc) {
-  doc.addImage("logo.png", "PNG", 80, 10, 40, 15);
+  doc.addImage("./images/Aethon_logo.png", "PNG", 92, 5, 30, 25);
 }
 
 function setPageColor(doc, color) {
@@ -473,6 +505,13 @@ function setPageColor(doc, color) {
 function placeFooter(doc) {
   doc.setFontSize(12);
   doc.setTextColor("#000000");
-  doc.setFont("Helvetica", "normal");
-  doc.text(75, 290, "www.aethonint.digital");
+  doc.setFont("Montserrat", "normal");
+  doc.text(80, 290, "www.aethonint.digital");
+}
+
+//for creating borders around... colors code displaying..... to prevent from if white color comes shows in border....
+function placeborder(doc, line_width, left, top, width, height) {
+  doc.setDrawColor("#000000"); // Border color
+  doc.setLineWidth(line_width);
+  doc.rect(left, top, width, height);
 }

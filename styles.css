@@ -27,7 +27,7 @@ body {
 }
 
 /* Input styles */
-input[type="text"]{
+input[type="text"] {
   width: calc(100% - 24px);
   padding: 12px 20px;
   margin: 8px 0;
@@ -38,7 +38,7 @@ input[type="text"]{
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 /*same code to uper*/
-.email_password_Specail{
+.email_password_Specail {
   width: calc(100% - 24px);
   padding: 12px 20px;
   margin: 8px 0;
@@ -85,6 +85,7 @@ button {
   cursor: pointer;
   font-size: 16px;
   margin: 8px 0;
+  font-weight: 600;
 }
 
 button:hover {
@@ -105,10 +106,11 @@ button:hover {
   justify-content: center;
   margin: 10px 0;
   margin: 5px;
-  padding: 8px;
+  padding: 10px;
   background-color: #fff6a5;
-  border-radius: 14px;
+  border-radius: 6px;
   font-weight: 600;
+  border: 1px solid #000000;
 }
 
 /* Styling for hex color boxes */
@@ -201,10 +203,17 @@ a:hover {
   display: inline-block;
   cursor: pointer;
   margin: auto 10px;
+  font-size: 12px;
+}
+.cross_flat {
+  display: block;
+  width: 100%;
+  margin: 0px;
+  padding: 3px;
 }
 .cross:hover {
-  box-shadow: 0px 0px 7px 0px #2843ff;
-  border: 1px solid black;
+  box-shadow: 0px 0px 6px 1px #92ff4f;
+  background-color: #6c0404;
 }
 .inner-div {
   display: flex;
@@ -212,22 +221,54 @@ a:hover {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+.inner-div-font {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 0px 10px;
+  margin: -15px 0px;
+}
+.addline {
+  width: 100%;
+  border: 0.1px solid black;
+  margin: 30px 0px 30px 0px;
+}
 
-.hexbtns {
+.multi_btns {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-
-#btn_prm_color {
+#canvas {
+  display: none;
+}
+.Firstbtn {
   background-color: #ffa111;
 }
-#btn_prm_color:hover {
+.Firstbtn:hover {
   background-color: #8b5a0f;
 }
-#btn_Sec_color {
+.Secondbtn {
   background: cadetblue;
 }
-#btn_Sec_color:hover {
+.Secondbtn:hover {
   background: #3a6163;
+}
+.lastbtn {
+  background: #96af09;
+}
+.lastbtn:hover {
+  background: #405205;
+}
+#btn_h3_font {
+  background: #9c02c2;
+}
+#btn_h3_font:hover {
+  background: #400459;
+}
+#btn_h4_5_6_font {
+  background: #d71803;
+}
+#btn_h4_5_6_font:hover {
+  background: #540a0a;
 }

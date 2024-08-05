@@ -12,6 +12,11 @@ let WebsiteUrl = "";
 let wp_LoginUrl = "";
 let wp_Username = "";
 let wp_password = "";
+let h1_font = "";
+let h2_font = "";
+let h3_font = "";
+let h456_font = "";
+let body_font = "";
 
 //function when we click on btn Add_hex_Code
 document
@@ -49,7 +54,7 @@ function addPrimaryHexCode() {
   const hexInput = document.getElementById("hexInput");
   const hexCode = hexInput.value;
   if (hexCode) {
-    primaryColor = hexCode;
+    primaryColor = "#" + hexCode;
     displayHexCodes();
   }
 }
@@ -59,7 +64,7 @@ function addSecondaryHexCode() {
   const hexInput = document.getElementById("hexInput");
   const hexCode = hexInput.value;
   if (hexCode) {
-    secondaryColor = hexCode;
+    secondaryColor = "#" + hexCode;
     displayHexCodes();
   }
 }
@@ -69,10 +74,37 @@ function addNormalHexCode() {
   const hexInput = document.getElementById("hexInput");
   const hexCode = hexInput.value;
   if (hexCode) {
-    hexCodes.push(hexCode);
+    hexCodes.push("#" + hexCode);
     displayHexCodes();
     hexInput.focus();
   }
+}
+
+//functin for h1_font adding behind on click of Add H1 Font
+function add_h1_font() {
+  h1_font = document.getElementById("fontInput").value;
+  displayFonts();
+  webfont();
+}
+function add_h2_font() {
+  h2_font = document.getElementById("fontInput").value;
+  displayFonts();
+  webfont();
+}
+function add_h3_font() {
+  h3_font = document.getElementById("fontInput").value;
+  displayFonts();
+  webfont();
+}
+function add_h456_font() {
+  h456_font = document.getElementById("fontInput").value;
+  displayFonts();
+  webfont();
+}
+function add_body_font() {
+  body_font = document.getElementById("fontInput").value;
+  displayFonts();
+  webfont();
 }
 
 //function for Email Password of Uper saving. storin them in an arrays. of Emails, and Passwords.
@@ -95,7 +127,7 @@ function add_Email_Password() {
   }
 }
 
-//function behind the Delete button.
+//function behind the Delete button of hex codes
 function del_hex_code(index) {
   if (index === -1) {
     primaryColor = "";
@@ -105,6 +137,24 @@ function del_hex_code(index) {
     hexCodes.splice(index, 1);
   }
   displayHexCodes();
+}
+
+//function behind the Delete button of fonts added behind.
+function del_font(number) {
+  if (number === 1) {
+    h1_font = "";
+  } else if (number === 2) {
+    h2_font = "";
+  } else if (number === 3) {
+    h3_font = "";
+  } else if (number === 4) {
+    h456_font = "";
+  } else if (number === 5) {
+    body_font = "";
+  } else {
+    console.log("Error in del_font function....");
+  }
+  displayFonts();
 }
 
 //function for creating a div for color display.
@@ -154,6 +204,60 @@ function displayHexCodes() {
   });
 }
 
+//create div for font showing function is doing...
+function createDivForFont(font, index, headtext) {
+  const fontContainer = document.getElementById("fontConatiner");
+
+  const outerdiv = document.createElement("div");
+  outerdiv.className = "flex-container";
+  outerdiv.style.display = "block";
+
+  const innerdiv = document.createElement("div");
+  innerdiv.className = "inner-div-font";
+
+  const heading = document.createElement("h4");
+  heading.style.marginRight = "6px";
+  heading.innerText = `${headtext}:`;
+
+  const pforfont = document.createElement("h4");
+  pforfont.innerText = font;
+
+  const cross = document.createElement("button");
+  cross.innerText = "Delete";
+  cross.className = "cross";
+  cross.classList.add("cross_flat");
+  cross.onclick = function () {
+    del_font(index);
+  };
+
+  innerdiv.appendChild(heading);
+  innerdiv.appendChild(pforfont);
+  outerdiv.appendChild(innerdiv);
+  outerdiv.appendChild(cross);
+  fontContainer.appendChild(outerdiv);
+}
+
+//function for displaying Fonts on The screen
+function displayFonts() {
+  const fontContainer = document.getElementById("fontConatiner");
+  fontContainer.innerHTML = "";
+  if (h1_font) {
+    createDivForFont(h1_font, 1, "H1");
+  }
+  if (h2_font) {
+    createDivForFont(h2_font, 2, "H2");
+  }
+  if (h3_font) {
+    createDivForFont(h3_font, 3, "H3");
+  }
+  if (h456_font) {
+    createDivForFont(h456_font, 4, "H4, H5, H6");
+  }
+  if (body_font) {
+    createDivForFont(body_font, 5, "Body");
+  }
+}
+
 //separate function for deleting any email or password from emails, passwords arrays.
 function del_value(index) {
   emails.splice(index, 1);
@@ -186,8 +290,39 @@ function display_Email_Passwords() {
     epContainer.appendChild(emailDiv);
     epContainer.appendChild(passwordDiv);
     epContainer.appendChild(cross);
-
     emailContainer.appendChild(epContainer);
+  });
+}
+function webfont() {
+  WebFont.load({
+    google: {
+      families: [h1_font, h2_font, h3_font, h456_font, body_font],
+    },
+    active: function () {
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (h1_font) {
+        ctx.font = `bold 100px ${h1_font}`;
+        ctx.fillText(`H1     ${h1_font}`, 30, 140);
+      }
+      if (h2_font) {
+        ctx.font = `bold 85px ${h2_font}`;
+        ctx.fillText(`H2     ${h2_font}`, 30, 290);
+      }
+      if (h3_font) {
+        ctx.font = `bold 75px ${h3_font}`;
+        ctx.fillText(`H3     ${h3_font}`, 30, 430);
+      }
+      if (h456_font) {
+        ctx.font = `65px ${h456_font}`;
+        ctx.fillText(`H4, H5, H6    ${h456_font}`, 30, 570);
+      }
+      if (body_font) {
+        ctx.font = `50px ${body_font}`;
+        ctx.fillText(`Body Font:   ${body_font}`, 30, 690);
+      }
+    },
   });
 }
 
@@ -198,9 +333,7 @@ function generatePDF() {
   const doc = new jsPDF(); //making object of jsPDF.
   const date_time = new Date(); //calling for getting current date and time.
   const img = new Image();
-  img.src = "./images/Aethon_logo.png"; //logo
-  const img1 = new Image();
-  img1.src = "./images/font_place.png"; //fontPlace on page 5.
+  img.src = "./images/Aethon_logo1.png"; //logo
 
   //importing font-style
   doc.addFont("/fonts/Montserrat-Regular.ttf", "Montserrat", "normal");
@@ -274,7 +407,7 @@ function generatePDF() {
   mainContent.forEach((text) => {
     const lines = doc.splitTextToSize(text, usableWidth);
     doc.text(lines, margin, yOffset);
-    yOffset += lines.length * 11; // Adjust the vertical position for each paragraph
+    yOffset += lines.length * 10; // Adjust the vertical position for each paragraph
   });
   doc.text(margin, yOffset + 10, "Warm Regards");
   doc.setFont("Montserrat", "bold");
@@ -282,6 +415,8 @@ function generatePDF() {
   doc.text(margin, yOffset + 30, "(Project Manager)");
   placeFooter(doc);
   //--------------------------------------------End of Page: 02------------------------------------------------------
+
+  //-------------------------------------------Start of Page: 03------------------------------------------------------
 
   //requesting for new page:03
   doc.addPage();
@@ -345,14 +480,18 @@ function generatePDF() {
     startY: 150,
     head: [["EMAIL", "PASSWORD"]],
     body: tableBody,
+    styles: {
+      font: "Montserrat", // Apply Montserrat to table text
+    },
     headStyles: {
       fillColor: "#ee2d4c", // Red for header background
       textColor: "#ffffff", // White text color for header
     },
   });
   placeFooter(doc);
-  //--------------------------------------------End of Page: 03------------------------------------------------------
+  //---------------------------------------------End of Page: 03------------------------------------------------------
 
+  //-------------------------------------------Start of Page: 04------------------------------------------------------\
   //requesting for new page:04
 
   doc.addPage();
@@ -360,10 +499,10 @@ function generatePDF() {
   doc.setFontSize(36);
   doc.setTextColor("#ee2d4c");
   doc.setFont("Montserrat", "bold");
-  doc.text(60, 40, "Color Details");
+  doc.text(60, 46, "Color Details");
   doc.setLineWidth(1);
   doc.setDrawColor("#ee2d4c");
-  doc.line(60, 42, 60 + doc.getTextWidth("Color Details"), 42);
+  doc.line(60, 48, 60 + doc.getTextWidth("Color Details"), 48);
 
   //Hex codes displaying
   doc.setFontSize(22);
@@ -385,7 +524,7 @@ function generatePDF() {
   doc.setFont("Montserrat", "bold");
   placeborder(doc, 0, 140, 100, 25, 25);
 
-  doc.text(25, 150, "Text: ");
+  doc.text(25, 150, "Other Colors Used: ");
   doc.setFont("Montserrat", "normal");
   let startY = 160;
   let spacing = 30;
@@ -395,8 +534,8 @@ function generatePDF() {
   //code for showing text based colors taking value from array.. hex_normal_codes
   hexCodes.forEach((code, index) => {
     if (index <= 3) {
-      let currentY = startY + index * spacing;
-      doc.text(60, currentY, code);
+      let currentY = startY + index * spacing + 10;
+      doc.text(60, currentY + 4, code);
       doc.setFillColor(code);
       doc.rect(140, currentY - 10, 25, 25, "F");
       placeborder(doc, 0, 140, currentY - 10, 25, 25);
@@ -430,31 +569,36 @@ function generatePDF() {
   placeFooter(doc);
   //--------------------------------------------End of Page: 04------------------------------------------------------
 
+  //-------------------------------------------Start of Page: 05------------------------------------------------------
   //requesting for new page:05
   doc.addPage();
   showlogo(doc);
   doc.setFontSize(36);
   doc.setTextColor("#ee2d4c");
   doc.setFont("Montserrat", "bold");
-  doc.text(60, 40, "TypoGraphy");
+  doc.text(63, 46, "Typography");
   doc.setLineWidth(1);
   doc.setDrawColor("#ee2d4c");
-  doc.line(60, 42, 60 + doc.getTextWidth("TypoGraphy"), 42);
-  doc.addImage("./images/font_place.png", "PNG", 15, 50);
+  doc.line(63, 49, 63 + doc.getTextWidth("Typography"), 49);
+
+  const canvas = document.getElementById("canvas");
+  const imgData = canvas.toDataURL("image/png", 0.3);
+  doc.addImage(imgData, "PNG", 15, 48);
   placeFooter(doc);
 
   //--------------------------------------------End of Page: 05------------------------------------------------------
 
+  //-----------------------------------------Start of Page: 06------------------------------------------------------
   //requesting for new page:06
   doc.addPage();
   showlogo(doc);
   doc.setFontSize(36);
   doc.setTextColor("#ee2d4c");
   doc.setFont("Montserrat", "bold");
-  doc.text(42, 40, "Additional Details");
+  doc.text(42, 46, "Additional Details");
   doc.setLineWidth(1);
   doc.setDrawColor("#ee2d4c");
-  doc.line(42, 42, 42 + doc.getTextWidth("Additional Details"), 42);
+  doc.line(42, 48, 42 + doc.getTextWidth("Additional Details"), 48);
 
   //content in the additional page is fixed and constant.....
   doc.setFontSize(16);
@@ -473,6 +617,7 @@ function generatePDF() {
   placeFooter(doc);
   //--------------------------------------------End of Page: 06------------------------------------------------------
 
+  //-------------------------------------------Start of Page: 07------------------------------------------------------
   //requesting another page: 07: Thankyou
   doc.addPage();
   showlogo(doc);
@@ -483,6 +628,7 @@ function generatePDF() {
   doc.text(margin + 15, 140, "Thank");
   doc.text(margin + 35, 180, "You");
   placeFooter(doc);
+  //--------------------------------------------End of Page: 07------------------------------------------------------
 
   //generating file Pdf
   let fileName = `Website Delivery Report - ${companyName}.pdf`;
@@ -491,7 +637,7 @@ function generatePDF() {
 
 //function for showing logo in pdf:
 function showlogo(doc) {
-  doc.addImage("./images/Aethon_logo.png", "PNG", 92, 5, 30, 25);
+  doc.addImage("./images/Aethon_logo1.png", "PNG", 87, 0, 40, 38);
 }
 
 function setPageColor(doc, color) {

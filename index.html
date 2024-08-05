@@ -7,6 +7,29 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
     </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": "WebPage",
+        "name": "Color and Font Details",
+        "description": "A page where users can enter and manage color and font details, contact information, and generate a PDF.",
+        "url": "https://pc.aethonint.digital/",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Aethon int",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://aethonint.digital/static/media/logo.a49e8448dffb11512dae.png"
+          }
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Customer Service",
+          "email": "hello@aethon.digital",
+          "telephone": "+92 537 533 033"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="container">
@@ -24,22 +47,60 @@
           type="text"
           class="inputs"
           id="hexInput"
-          placeholder="Enter hex code"
+          placeholder="(e.g: (ffffff)  DO NOT INCLUDE '#')"
         />
-        <div class="hexbtns">
-          <button id="btn_prm_color" onclick="addPrimaryHexCode()">
+        <div class="multi_btns">
+          <button
+            id="btn_prm_color"
+            class="Firstbtn"
+            onclick="addPrimaryHexCode()"
+          >
             Add as Primary Color
           </button>
-          <button id="btn_Sec_color" onclick="addSecondaryHexCode()">
+          <button
+            id="btn_Sec_color"
+            class="Secondbtn"
+            onclick="addSecondaryHexCode()"
+          >
             Add as Secondary Color
           </button>
-          <button id="btn_normal_color" onclick="addNormalHexCode()">
+          <button
+            id="btn_normal_color"
+            class="lastbtn"
+            onclick="addNormalHexCode()"
+          >
             Add Text Hex Code
           </button>
         </div>
       </div>
       <div id="hexCodesContainer" class="hex-codes-container"></div>
-
+      <div class="addline"></div>
+      <div>
+        <label class="title-bold" for="fontInput">Fonts Used in Website:</label>
+        <input
+          type="text"
+          class="inputs"
+          id="fontInput"
+          placeholder="Enter Font"
+        />
+        <div class="multi_btns">
+          <button id="btn_h1_font" class="Firstbtn" onclick="add_h1_font()">
+            Add H1 Font
+          </button>
+          <button id="btn_h2_font" class="Secondbtn" onclick="add_h2_font()">
+            Add H2 Font
+          </button>
+          <button id="btn_h3_font" onclick="add_h3_font()">Add H3 Font</button>
+          <button id="btn_h4_5_6_font" onclick="add_h456_font()">
+            Add H4,H5,H6
+          </button>
+          <button id="btn_body_font" class="lastbtn" onclick="add_body_font()">
+            Add Body Font
+          </button>
+        </div>
+      </div>
+      <div id="fontConatiner" class="hex-codes-container"></div>
+      <div class="addline"></div>
       <div class="em_pass">
         <div>
           <label class="title-bold" for="emailinput">Email: </label>
@@ -65,6 +126,7 @@
         Add Email & Password
       </button>
       <div id="ep_container"></div>
+      <div class="addline"></div>
 
       <div>
         <label class="title-bold" for="clientName_input">Client Name:</label>
@@ -120,9 +182,10 @@
         Generate PDF
       </button>
     </div>
-
+    <canvas id="canvas" width="680" height="800"></canvas>
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
   </body>
 </html>
